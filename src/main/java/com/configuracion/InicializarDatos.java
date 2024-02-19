@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import com.entidades.Atraccion;
 import com.entidades.Destino;
 import com.entidades.Opinion;
-import com.entidades.Rol;
+import com.entidades.Role;
 import com.entidades.Usuario;
 import com.github.javafaker.Faker;
 import com.repositorio.AtraccionRepository;
@@ -55,21 +55,23 @@ public class InicializarDatos implements CommandLineRunner{
         List<Opinion> opiniones = generarOpiniones(50, usuarios, atracciones);
         opinionRepository.saveAll(opiniones);
        
-        // Crear un usuario administrador fijo
-        Usuario admin = new Usuario();
-        admin.setNombreUsuario("admin");
-        admin.setCorreoElectronico("admin@example.com");
-        admin.setPassword(passwordEncoder.encode("admin1234"));
-        admin.setRoles(Collections.singleton(Rol.ROLE_ADMIN)); // Asignar el rol de administrador
-        usuarioRepository.save(admin);
-        
-        // Crear un usuario normal fijo
-        Usuario user = new Usuario();
-        user.setNombreUsuario("user");
-        user.setCorreoElectronico("user@example.com");
-        user.setPassword(passwordEncoder.encode("user1234"));
-        user.setRoles(Collections.singleton(Rol.ROLE_USER)); // Asignar el rol de usuario
-        usuarioRepository.save(user);
+		// Crear un usuario administrador fijo
+		Usuario admin = new Usuario();
+		admin.setNombreUsuario("admin");
+		admin.setEmail("admin@example.com");
+		admin.setPassword(passwordEncoder.encode("admin1234"));
+		admin.setRoles(Collections.singleton(Role.ROLE_ADMIN)); // Asignar el rol de administrador
+		usuarioRepository.save(admin);
+
+		// Crear un usuario normal fijo
+		Usuario user = new Usuario();
+		user.setNombreUsuario("user");
+		user.setEmail("user@example.com");
+		user.setPassword(passwordEncoder.encode("user1234"));
+		user.setRoles(Collections.singleton(Role.ROLE_USER)); // Asignar el rol de usuario
+		usuarioRepository.save(user);
+		
+		
     }
         
     

@@ -1,6 +1,6 @@
 package com.serviceImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.entidades.Destino;
@@ -15,7 +15,7 @@ public class DestinoServiceImpl implements DestinoService {
 
     private final DestinoRepository destinoRepository;
 
-    @Autowired
+
     public DestinoServiceImpl(DestinoRepository destinoRepository) {
         this.destinoRepository = destinoRepository;
     }

@@ -1,6 +1,6 @@
 package com.entidades;
 
-public enum Rol {
+public enum Role{
 	ROLE_USER,
     ROLE_ADMIN
 }

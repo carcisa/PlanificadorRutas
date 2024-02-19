@@ -1,6 +1,6 @@
 package com.serviceImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.entidades.Atraccion;
@@ -15,7 +15,7 @@ public class AtraccionServiceImpl implements AtraccionService {
 
     private final AtraccionRepository atraccionRepository;
 
-    @Autowired
+   
     public AtraccionServiceImpl(AtraccionRepository atraccionRepository) {
         this.atraccionRepository = atraccionRepository;
     }

@@ -4,9 +4,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.springframework.context.support.BeanDefinitionDsl.Role;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CollectionTable;
@@ -23,9 +24,14 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements UserDetails {
+public class Usuario implements UserDetails{
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -33,16 +39,16 @@ public class Usuario implements UserDetails {
     private String nombreUsuario;
 
     @Column(nullable = false, unique = true)
-    private String correoElectronico;
+    private String email;
 
     @Column(nullable = false)
     private String password;
     
-    @ElementCollection(targetClass = Rol.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "usuario_roles")
     @Column(name = "rol")
-    private Set<Rol> roles;
+    private Set<Role> roles;
     
     
     public Usuario() {
@@ -50,7 +56,7 @@ public class Usuario implements UserDetails {
 
     public Usuario(String nombreUsuario, String correoElectronico, String password) {
         this.nombreUsuario = nombreUsuario;
-        this.correoElectronico = correoElectronico;
+        this.email = correoElectronico;
         this.password = password;
     }
 
@@ -70,15 +76,21 @@ public class Usuario implements UserDetails {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
+   
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
-    }
+    public String getEmail() {
+		return email;
+	}
 
-    public String getPassword() {
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public String getPassword() {
         return password;
     }
 
@@ -88,12 +100,12 @@ public class Usuario implements UserDetails {
     
    
 
-	public Set<Rol> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Rol> roles) {
-		this.roles = roles;
+	public void setRoles(Set<Role> roleUser) {
+		this.roles = roleUser;
 	}
 
 	@Override
@@ -101,18 +113,23 @@ public class Usuario implements UserDetails {
         return "Usuario{" +
                "id=" + id +
                ", nombreUsuario='" + nombreUsuario + '\'' +
-               ", correoElectronico='" + correoElectronico + '\'' +
+               ", email='" + email + '\'' +
                ", contraseña='" + password + '\'' +
                '}';
     }
 
+	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		Collection<GrantedAuthority> authorities = roles.stream()
+		        .map(role -> new SimpleGrantedAuthority(role.name()))
+		        .collect(Collectors.toList());
+		    
+		    return authorities;	
 	}
 
 	@Override
 	public String getUsername() {
-		return nombreUsuario;
+		return email;
 	}
 
 	@Override
@@ -122,16 +139,23 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
+		// TODO Auto-generated method stub
 		return true;
 	}
+
+	
+
+	
 }

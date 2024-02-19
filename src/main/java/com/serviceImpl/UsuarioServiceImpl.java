@@ -1,6 +1,6 @@
 package com.serviceImpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +20,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    @Autowired
     public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
@@ -58,8 +57,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsService() {
             @Override
-            public UserDetails loadUserByUsername(String username) {
-                return usuarioRepository.findByNombreUsuario(username)
+            public UserDetails loadUserByUsername(String email) {
+                return usuarioRepository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };

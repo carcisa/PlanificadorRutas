@@ -18,12 +18,12 @@ public class UsuarioController {
 	@Autowired
     private UsuarioService usuarioService;
 
-//    @Autowired
-//    public UsuarioController(UsuarioService usuarioService) {
-//        this.usuarioService = usuarioService;
-//    }
+    @Autowired
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
+    }
 
-    @GetMapping
+    @GetMapping("/")
     public List<Usuario> getAllUsuarios() {
         return usuarioService.findAll();
     }
