@@ -4,6 +4,7 @@ package com.entidades;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +29,7 @@ public class Destino {
     private String descripcion;
 
     @OneToMany(mappedBy = "destino")
-    @JsonBackReference
+    @JsonManagedReference
     private List<Atraccion> atracciones;
 
     public Destino() {

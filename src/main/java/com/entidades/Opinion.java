@@ -21,7 +21,7 @@ public class Opinion {
     private Integer idUsuario;
 
     @Column(nullable = false)
-    private Long idAtraccion;
+    private Integer idAtraccion;
 
     @Column(nullable = false)
     private Integer puntuacion;
@@ -35,7 +35,7 @@ public class Opinion {
     public Opinion() {
     }
 
-    public Opinion(Integer idUsuario, Long idAtraccion, Integer puntuacion, String comentario, LocalDate fecha) {
+    public Opinion(Integer idUsuario, Integer idAtraccion, Integer puntuacion, String comentario, LocalDate fecha) {
         this.idUsuario = idUsuario;
         this.idAtraccion = idAtraccion;
         this.puntuacion = puntuacion;
@@ -59,15 +59,17 @@ public class Opinion {
         this.idUsuario = idUsuario;
     }
 
-    public Long getIdAtraccion() {
-        return idAtraccion;
-    }
+  
 
-    public void setIdAtraccion(Long idAtraccion) {
-        this.idAtraccion = idAtraccion;
-    }
+    public Integer getIdAtraccion() {
+		return idAtraccion;
+	}
 
-    public Integer getPuntuacion() {
+	public void setIdAtraccion(Integer idAtraccion) {
+		this.idAtraccion = idAtraccion;
+	}
+
+	public Integer getPuntuacion() {
         return puntuacion;
     }
 

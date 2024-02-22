@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.entidades.Atraccion;
+import com.entidades.Categoria;
 import com.entidades.Destino;
 import com.entidades.Opinion;
 import com.entidades.Role;
@@ -41,18 +42,18 @@ public class InicializarDatos implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 //		List<Usuario> usuarios = generarUsuarios(50);
 //		usuarioRepository.saveAll(usuarios);
 //		
-		
-		  // Generar e insertar usuarios aleatorios
-	    List<Usuario> usuarios = generarUsuarios(50);
-	    for (Usuario usuario : usuarios) {
-	        if (usuarioRepository.findByEmail(usuario.getEmail()).isEmpty()) {
-	            usuarioRepository.save(usuario);
-	        }
-	    }
+
+		// Generar e insertar usuarios aleatorios
+		List<Usuario> usuarios = generarUsuarios(50);
+		for (Usuario usuario : usuarios) {
+			if (usuarioRepository.findByEmail(usuario.getEmail()).isEmpty()) {
+				usuarioRepository.save(usuario);
+			}
+		}
 
 		List<Destino> destinos = generarDestinos(50);
 		destinoRepository.saveAll(destinos);
@@ -62,11 +63,11 @@ public class InicializarDatos implements CommandLineRunner {
 
 		List<Opinion> opiniones = generarOpiniones(50, usuarios, atracciones);
 		opinionRepository.saveAll(opiniones);
-		
-		 // Insertar usuarios fijos 
-	    insertarUsuarioSiNoExiste("admin@example.com", "admin", "admin1234", Role.ROLE_ADMIN);
-	    insertarUsuarioSiNoExiste("user@example.com", "user", "user1234", Role.ROLE_USER);
-	    
+
+		// Insertar usuarios fijos
+		insertarUsuarioSiNoExiste("admin@example.com", "admin", "admin1234", Role.ROLE_ADMIN);
+		insertarUsuarioSiNoExiste("user@example.com", "user", "user1234", Role.ROLE_USER);
+
 	}
 //
 //		if (usuarioRepository.findByEmail("admin@example.com").isEmpty()) {
@@ -89,17 +90,17 @@ public class InicializarDatos implements CommandLineRunner {
 //			usuarioRepository.save(user);
 //		}
 //	}
-	    
-	    private void insertarUsuarioSiNoExiste(String email, String nombreUsuario, String contraseña, Role role) {
-	        usuarioRepository.findByEmail(email).orElseGet(() -> {
-	            Usuario usuario = new Usuario();
-	            usuario.setEmail(email);
-	            usuario.setNombreUsuario(nombreUsuario);
-	            usuario.setPassword(passwordEncoder.encode(contraseña));
-	            usuario.setRoles(Collections.singleton(role));
-	            return usuarioRepository.save(usuario);
-	        });
-	    }
+
+	private void insertarUsuarioSiNoExiste(String email, String nombreUsuario, String contraseña, Role role) {
+		usuarioRepository.findByEmail(email).orElseGet(() -> {
+			Usuario usuario = new Usuario();
+			usuario.setEmail(email);
+			usuario.setNombreUsuario(nombreUsuario);
+			usuario.setPassword(passwordEncoder.encode(contraseña));
+			usuario.setRoles(Collections.singleton(role));
+			return usuarioRepository.save(usuario);
+		});
+	}
 
 	public List<Usuario> generarUsuarios(int cantidad) {
 		List<Usuario> usuarios = new ArrayList<>();
@@ -121,14 +122,21 @@ public class InicializarDatos implements CommandLineRunner {
 	}
 
 	public List<Atraccion> generarAtracciones(int cantidad, List<Destino> destinos) {
-		List<Atraccion> atracciones = new ArrayList<>();
-		for (int i = 0; i < cantidad; i++) {
-			Atraccion atraccion = new Atraccion(faker.lorem().word(), faker.lorem().sentence(), faker.lorem().word(),
-					faker.address().streetAddress(), destinos.get(faker.random().nextInt(destinos.size())));
-			atracciones.add(atraccion);
-		}
-		return atracciones;
+	    List<Atraccion> atracciones = new ArrayList<>();
+	    Categoria[] categorias = Categoria.values(); 
+	    for (int i = 0; i < cantidad; i++) {
+	        Atraccion atraccion = new Atraccion(
+	                faker.lorem().word(),
+	                faker.lorem().sentence(),
+	                categorias[faker.random().nextInt(categorias.length)], 
+	                faker.address().streetAddress(),
+	                destinos.get(faker.random().nextInt(destinos.size()))
+	        );
+	        atracciones.add(atraccion);
+	    }
+	    return atracciones;
 	}
+
 
 	public List<Opinion> generarOpiniones(int cantidad, List<Usuario> usuarios, List<Atraccion> atracciones) {
 		List<Opinion> opiniones = new ArrayList<>();
