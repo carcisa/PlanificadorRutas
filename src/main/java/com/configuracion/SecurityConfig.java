@@ -38,6 +38,11 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.POST, "/api/usuarios/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
 				.requestMatchers(HttpMethod.PUT, "/api/usuarios/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
 				.requestMatchers(HttpMethod.DELETE, "/api/usuarios/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
+				
+				.requestMatchers(HttpMethod.GET, "/api/destinos/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.POST, "/api/destinos/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.PUT, "/api/destinos/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.DELETE, "/api/destinos/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
 				.requestMatchers(HttpMethod.GET, "/api/admin/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
 				.anyRequest()
 				.authenticated())
@@ -51,6 +56,7 @@ return http.build();
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
     
     @Bean
 	public AuthenticationProvider authenticationProvider() {

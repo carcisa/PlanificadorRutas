@@ -41,9 +41,11 @@ public class InicializarDatos implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 //		List<Usuario> usuarios = generarUsuarios(50);
 //		usuarioRepository.saveAll(usuarios);
 //		
+		
 		  // Generar e insertar usuarios aleatorios
 	    List<Usuario> usuarios = generarUsuarios(50);
 	    for (Usuario usuario : usuarios) {

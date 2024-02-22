@@ -1,5 +1,7 @@
 package com.entidades;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Atraccion {
 
     @ManyToOne
     @JoinColumn(name = "destino_id", nullable = false)
+    @JsonManagedReference
     private Destino destino;
 
 

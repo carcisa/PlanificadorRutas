@@ -13,14 +13,15 @@ import java.util.List;
 @RequestMapping("/api/destinos")
 public class DestinoController {
 
+	@Autowired
     private final DestinoService destinoService;
 
-    @Autowired
+   
     public DestinoController(DestinoService destinoService) {
         this.destinoService = destinoService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<Destino> getAllDestinos() {
         return destinoService.findAll();
     }
