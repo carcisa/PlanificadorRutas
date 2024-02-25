@@ -40,21 +40,6 @@ public class AtraccionController {
         return atraccionService.save(atraccion);
     }
 
-//    @PostMapping("/{id}/atracciones")
-//    public ResponseEntity<Atraccion> addAtraccionToDestino(@PathVariable Integer id, @RequestBody Atraccion atraccion) {
-//        return destinoService.findById(id.intValue()) 
-//                .map(destino -> {
-//                    atraccion.setDestino(destino); 
-//                    Atraccion nuevaAtraccion = atraccionService.save(atraccion); 
-//                    return ResponseEntity.ok(nuevaAtraccion); 
-//                })
-//                .orElseGet(() -> ResponseEntity.notFound().build()); 
-//    }
-
-	
-
-
-
 	@PutMapping("/{id}")
 	public ResponseEntity<Atraccion> updateAtraccion(@PathVariable Long id, @RequestBody Atraccion atraccionDetails) {
 		return atraccionService.findById(id).map(atraccion -> {

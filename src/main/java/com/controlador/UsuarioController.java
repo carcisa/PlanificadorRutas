@@ -5,11 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.entidades.Role;
 import com.entidades.Usuario;
 import com.servicio.UsuarioService;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -36,6 +41,7 @@ public class UsuarioController {
 
     @PostMapping
     public Usuario createUsuario(@RequestBody Usuario usuario) {
+    	usuario.setRoles(Collections.singleton(Role.ROLE_USER));
         return usuarioService.save(usuario);
     }
 

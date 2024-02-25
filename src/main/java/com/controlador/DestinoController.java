@@ -54,28 +54,16 @@ public class DestinoController {
         return destinoService.save(destino);
     }
     
-//    @PostMapping("/destino/{destino_Id}")
-//	public Object addAtraccionToDestino(@PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
-//		return destinoService.findById(destino_Id).map(destino -> {
-//			atraccion.setDestino(destino);
-//			Atraccion nuevaAtraccion = atraccionService.save(atraccion);
-//			return new ResponseEntity<>(nuevaAtraccion, HttpStatus.CREATED);
-//		}).orElse(ResponseEntity.notFound().build());
-//	}
-    
-    @PutMapping("/{id}/atracciones")
-	public ResponseEntity<AtraccionesDto> createAtraccionByDestino(@PathVariable Integer id, @RequestBody Atraccion atraccionDetails) {
-		return destinoService.findById(id).map(atraccion -> {
-			atraccion.setNombre(atraccionDetails.getNombre());
-			atraccion.setDescripcion(atraccionDetails.getDescripcion());
-			atraccion.setCategoria(atraccionDetails.getCategoria());
-			atraccion.setDireccion(atraccionDetails.getDireccion());
-			Atraccion updatedAtraccion = atraccionService.save(atraccion);
-			return ResponseEntity.ok(updatedAtraccion);
-		}).orElseGet(() -> ResponseEntity.notFound().build());
+    @PostMapping("/{destino_Id}/atracciones")
+	public Object addAtraccionToDestino(@PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
+		return destinoService.findById(destino_Id).map(destino -> {
+			destino.agregarAtraccion(atraccion);
+			destinoService.save(destino);
+			return new ResponseEntity<>(atraccion, HttpStatus.CREATED);
+		}).orElse(ResponseEntity.notFound().build());
 	}
+    
 	
-
     @PutMapping("/{id}")
     public ResponseEntity<Destino> updateDestino(@PathVariable Integer id, @RequestBody Destino destinoDetails) {
         return destinoService.findById(id)

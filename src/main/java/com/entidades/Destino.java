@@ -6,6 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class Destino {
     @Column(length = 500)
     private String descripcion;
 
-    @OneToMany(mappedBy = "destino")
+    @OneToMany(mappedBy = "destino", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Atraccion> atracciones;
 
@@ -96,6 +97,14 @@ public class Destino {
 	public void setAtracciones(List<Atraccion> atracciones) {
 		this.atracciones = atracciones;
 	}
+	
+	public void agregarAtraccion(Atraccion atraccion) {
+		atraccion.setDestino(this);
+		atracciones.add(atraccion);
+	}
+
+
+	
 
 
 	
