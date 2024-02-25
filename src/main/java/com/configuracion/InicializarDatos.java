@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 import com.entidades.Atraccion;
 import com.entidades.Categoria;
 import com.entidades.Destino;
-import com.entidades.Opinion;
+
 import com.entidades.Role;
 import com.entidades.Usuario;
 import com.github.javafaker.Faker;
 import com.repositorio.AtraccionRepository;
 import com.repositorio.DestinoRepository;
-import com.repositorio.OpinionRepository;
+
 import com.repositorio.UsuarioRepository;
 
 @Component
@@ -34,8 +34,7 @@ public class InicializarDatos implements CommandLineRunner {
 	private DestinoRepository destinoRepository;
 	@Autowired
 	private AtraccionRepository atraccionRepository;
-	@Autowired
-	private OpinionRepository opinionRepository;
+	
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;

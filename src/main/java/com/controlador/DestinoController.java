@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.dto.AtraccionesDto;
 import com.entidades.Atraccion;
 import com.entidades.Destino;
 import com.servicio.AtraccionService;
