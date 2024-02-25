@@ -89,13 +89,13 @@ Establece reglas para proteger endpoints de la API, usando JWT para autenticaci�
 
 - **Diagramas de Clases:** Para el diseño de la estructura de clases que se implementará en Spring Boot.
   
-![Diagrama ER](src/main/resources/img/diagram(3).png)
+![Diagrama ER](src/main/resources/img/diagram_01.png)
 
 
 
 - **Diagrama de Secuencia:** Para mostrar cómo interactúan las diferentes partes del sistema durante una operación típica, como la sugerencia de planes de ocio.
   
-![Diagrama ER](src/main/resources/img/diagram(4).png)
+![Diagrama ER](src/main/resources/img/diagram_02.png)
 
 
 # Lógica de Negocio Adicional
