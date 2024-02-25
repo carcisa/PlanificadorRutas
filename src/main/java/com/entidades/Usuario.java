@@ -22,36 +22,63 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * La clase Usuario representa un usuario de la aplicación, implementando la interfaz UserDetails para integrarse con Spring Security.
+ * Mapea la entidad a la tabla 'usuarios' en la base de datos y gestiona los roles de seguridad.
+ */
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements UserDetails{
+public class Usuario implements UserDetails {
 
-  
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
+    /**
+     * Identificador único del usuario, generado automáticamente.
+     */
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * Nombre de usuario, único y no nulo.
+     */
     @Column(nullable = false, unique = true)
     private String nombreUsuario;
 
+    /**
+     * Correo electrónico del usuario, único y no nulo.
+     */
     @Column(nullable = false, unique = true)
     private String email;
 
+    /**
+     * Contraseña del usuario, no nula.
+     */
     @Column(nullable = false)
     private String password;
-    
+
+    /**
+     * Roles de seguridad asignados al usuario, representados por el enum Role.
+     * Se cargan con estrategia EAGER para disponibilidad inmediata.
+     */
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "usuario_roles")
     @Column(name = "rol")
     private Set<Role> roles;
     
-    
+    /**
+     * Constructor por defecto.
+     */
     public Usuario() {
     }
 
+    /**
+     * Constructor para crear un nuevo usuario con nombre de usuario, correo electrónico y contraseña.
+     * @param nombreUsuario El nombre de usuario, debe ser único.
+     * @param correoElectronico El correo electrónico del usuario, debe ser único.
+     * @param password La contraseña del usuario.
+     */
     public Usuario(String nombreUsuario, String correoElectronico, String password) {
         this.nombreUsuario = nombreUsuario;
         this.email = correoElectronico;
@@ -116,6 +143,10 @@ public class Usuario implements UserDetails{
                '}';
     }
 
+	/**
+     * Método para obtener las autoridades de seguridad del usuario, convertidas de roles a GrantedAuthority.
+     * @return Colección de GrantedAuthority representando los roles del usuario.
+     */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = roles.stream()

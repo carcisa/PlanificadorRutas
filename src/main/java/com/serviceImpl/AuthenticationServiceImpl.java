@@ -17,14 +17,25 @@ import com.usuarioResponse.JwtAuthenticationResponse;
 
 import lombok.Builder;
 
-@Builder
+
+/**
+ * Implementación del servicio de autenticación, gestionando el registro y el inicio de sesión de los usuarios.
+ */
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
-    private UsuarioRepository userRepository; 
+    private UsuarioRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Constructor para inyección de dependencias requeridas para la autenticación.
+     *
+     * @param userRepository Repositorio de usuarios para operaciones de base de datos.
+     * @param passwordEncoder Codificador de contraseñas para asegurar las contraseñas de los usuarios.
+     * @param jwtService Servicio para la generación de tokens JWT.
+     * @param authenticationManager Gestor de autenticación para Spring Security.
+     */
     public AuthenticationServiceImpl(UsuarioRepository userRepository,
                                      PasswordEncoder passwordEncoder,
                                      JwtService jwtService,

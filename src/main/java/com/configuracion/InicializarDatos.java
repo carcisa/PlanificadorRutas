@@ -23,28 +23,34 @@ import com.repositorio.DestinoRepository;
 
 import com.repositorio.UsuarioRepository;
 
+/**
+ * Clase de configuración que implementa CommandLineRunner para inicializar datos en la base de datos al arranque de la aplicación.
+ * Utiliza Faker para generar datos aleatorios para usuarios, destinos y atracciones.
+ */
 @Component
 public class InicializarDatos implements CommandLineRunner {
 
-	private final Faker faker = new Faker(new Locale("es"));
+    private final Faker faker = new Faker(new Locale("es"));
 
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	@Autowired
-	private DestinoRepository destinoRepository;
-	@Autowired
-	private AtraccionRepository atraccionRepository;
-	
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    @Autowired
+    private DestinoRepository destinoRepository;
+    @Autowired
+    private AtraccionRepository atraccionRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
+    /**
+     * Método ejecutado automáticamente al iniciar la aplicación.
+     * Genera y guarda datos aleatorios de usuarios, destinos y atracciones en la base de datos.
+     * @param args Argumentos de línea de comandos pasados al iniciar la aplicación.
+     */
 	@Override
 	public void run(String... args) throws Exception {
 
-//		List<Usuario> usuarios = generarUsuarios(50);
-//		usuarioRepository.saveAll(usuarios);
-//		
+
+		
 
 		// Generar e insertar usuarios aleatorios
 		List<Usuario> usuarios = generarUsuarios(50);
@@ -60,36 +66,22 @@ public class InicializarDatos implements CommandLineRunner {
 		List<Atraccion> atracciones = generarAtracciones(50, destinos);
 		atraccionRepository.saveAll(atracciones);
 
-//		List<Opinion> opiniones = generarOpiniones(50, usuarios, atracciones);
-//		opinionRepository.saveAll(opiniones);
+
 
 		// Insertar usuarios fijos
 		insertarUsuarioSiNoExiste("admin@example.com", "admin", "admin1234", Role.ROLE_ADMIN);
 		insertarUsuarioSiNoExiste("user@example.com", "user", "user1234", Role.ROLE_USER);
 
 	}
-//
-//		if (usuarioRepository.findByEmail("admin@example.com").isEmpty()) {
-//			// Crear un usuario administrador fijo
-//			Usuario admin = new Usuario();
-//			admin.setNombreUsuario("admin");
-//			admin.setEmail("admin@example.com");
-//			admin.setPassword(passwordEncoder.encode("admin1234"));
-//			admin.setRoles(Collections.singleton(Role.ROLE_ADMIN)); // Asignar el rol de administrador
-//			usuarioRepository.save(admin);
-//		}
-//
-//		if (usuarioRepository.findByEmail("user@example.com").isEmpty()) {
-//			// Crear un usuario normal fijo
-//			Usuario user = new Usuario();
-//			user.setNombreUsuario("user");
-//			user.setEmail("user@example.com");
-//			user.setPassword(passwordEncoder.encode("user1234"));
-//			user.setRoles(Collections.singleton(Role.ROLE_USER)); // Asignar el rol de usuario
-//			usuarioRepository.save(user);
-//		}
-//	}
 
+	
+	 /**
+     * Inserta un nuevo usuario en la base de datos si no existe uno con el mismo correo electrónico.
+     * @param email El correo electrónico del usuario.
+     * @param nombreUsuario El nombre de usuario.
+     * @param contraseña La contraseña del usuario.
+     * @param role El rol de seguridad asignado al usuario.
+     */
 	private void insertarUsuarioSiNoExiste(String email, String nombreUsuario, String contraseña, Role role) {
 		usuarioRepository.findByEmail(email).orElseGet(() -> {
 			Usuario usuario = new Usuario();
@@ -100,7 +92,13 @@ public class InicializarDatos implements CommandLineRunner {
 			return usuarioRepository.save(usuario);
 		});
 	}
+	
 
+	/**
+     * Genera una lista de usuarios aleatorios.
+     * @param cantidad La cantidad de usuarios a generar.
+     * @return Una lista de objetos Usuario.
+     */
 	public List<Usuario> generarUsuarios(int cantidad) {
 		List<Usuario> usuarios = new ArrayList<>();
 		for (int i = 0; i < cantidad; i++) {
@@ -111,6 +109,12 @@ public class InicializarDatos implements CommandLineRunner {
 		return usuarios;
 	}
 
+	
+	/**
+     * Genera una lista de destinos aleatorios.
+     * @param cantidad La cantidad de destinos a generar.
+     * @return Una lista de objetos Destino.
+     */
 	public List<Destino> generarDestinos(int cantidad) {
 		List<Destino> destinos = new ArrayList<>();
 		for (int i = 0; i < cantidad; i++) {
@@ -120,6 +124,12 @@ public class InicializarDatos implements CommandLineRunner {
 		return destinos;
 	}
 
+	/**
+     * Genera una lista de atracciones aleatorias asociadas a destinos.
+     * @param cantidad La cantidad de atracciones a generar.
+     * @param destinos La lista de destinos a los que pueden estar asociadas las atracciones.
+     * @return Una lista de objetos Atraccion.
+     */
 	public List<Atraccion> generarAtracciones(int cantidad, List<Destino> destinos) {
 	    List<Atraccion> atracciones = new ArrayList<>();
 	    Categoria[] categorias = Categoria.values(); 
@@ -136,19 +146,5 @@ public class InicializarDatos implements CommandLineRunner {
 	    return atracciones;
 	}
 
-
-//	public List<Opinion> generarOpiniones(int cantidad, List<Usuario> usuarios, List<Atraccion> atracciones) {
-//		List<Opinion> opiniones = new ArrayList<>();
-//		for (int i = 0; i < cantidad; i++) {
-//			Opinion opinion = new Opinion(usuarios.get(faker.random().nextInt(usuarios.size())).getId(),
-//					atracciones.get(faker.random().nextInt(atracciones.size())).getId(),
-//					faker.number().numberBetween(1, 5), faker.lorem().sentence(),
-//					faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-//
-//			);
-//			opiniones.add(opinion);
-//		}
-//		return opiniones;
-//	}
 
 }
