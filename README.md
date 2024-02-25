@@ -5,7 +5,7 @@
 - **Atracción:** Representa lugares de interés dentro de un destino. Atributos incluyen ID, nombre, descripción, categoría, dirección, y destino asociado.
 - **Destino:** Define ubicaciones que los usuarios pueden explorar. Incluye ID, nombre, descripción, y una lista de atracciones.
 - **Usuario:** Almacena información de los usuarios, con atributos como ID, nombre de usuario (email), contraseña, y roles para control de acceso.
- ![Diagrama ER](src\main\resources\img\diagram.png)
+ ![Diagrama ER](main\resources\img\diagram.png)
 
 ## Relaciones entre Entidades
 
