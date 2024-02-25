@@ -7,7 +7,7 @@ import com.entidades.Destino;
 
 public interface DestinoService {
     List<Destino> findAll();
-    Optional<Destino> findById(Long id);
+    Optional<Destino> findById(Integer id);
     Destino save(Destino destino);
-    void deleteById(Long id);
+    void deleteById(Integer id);
 }

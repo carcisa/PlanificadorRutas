@@ -1,13 +1,18 @@
 package com.controlador;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.dto.AtraccionesDto;
+import com.entidades.Atraccion;
 import com.entidades.Destino;
+import com.servicio.AtraccionService;
 import com.servicio.DestinoService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/destinos")
@@ -15,6 +20,8 @@ public class DestinoController {
 
 	@Autowired
     private final DestinoService destinoService;
+	
+	
 
    
     public DestinoController(DestinoService destinoService) {
@@ -27,19 +34,50 @@ public class DestinoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Destino> getDestinoById(@PathVariable Long id) {
+    public ResponseEntity<Destino> getDestinoById(@PathVariable Integer id) {
         return destinoService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    
+    @GetMapping("/{id}/atracciones")
+    public ResponseEntity< List<Atraccion>> AtraccionesGetDestinoById(@PathVariable Integer id) {
+        Optional<Destino> destino = destinoService.findById(id);
+        List<Atraccion> atracciones = destino.get().getAtracciones();
+//                .map(ResponseEntity::ok)
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+		return ResponseEntity.ok(atracciones);
     }
 
     @PostMapping
     public Destino createDestino(@RequestBody Destino destino) {
         return destinoService.save(destino);
     }
+    
+//    @PostMapping("/destino/{destino_Id}")
+//	public Object addAtraccionToDestino(@PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
+//		return destinoService.findById(destino_Id).map(destino -> {
+//			atraccion.setDestino(destino);
+//			Atraccion nuevaAtraccion = atraccionService.save(atraccion);
+//			return new ResponseEntity<>(nuevaAtraccion, HttpStatus.CREATED);
+//		}).orElse(ResponseEntity.notFound().build());
+//	}
+    
+    @PutMapping("/{id}/atracciones")
+	public ResponseEntity<AtraccionesDto> createAtraccionByDestino(@PathVariable Integer id, @RequestBody Atraccion atraccionDetails) {
+		return destinoService.findById(id).map(atraccion -> {
+			atraccion.setNombre(atraccionDetails.getNombre());
+			atraccion.setDescripcion(atraccionDetails.getDescripcion());
+			atraccion.setCategoria(atraccionDetails.getCategoria());
+			atraccion.setDireccion(atraccionDetails.getDireccion());
+			Atraccion updatedAtraccion = atraccionService.save(atraccion);
+			return ResponseEntity.ok(updatedAtraccion);
+		}).orElseGet(() -> ResponseEntity.notFound().build());
+	}
+	
 
     @PutMapping("/{id}")
-    public ResponseEntity<Destino> updateDestino(@PathVariable Long id, @RequestBody Destino destinoDetails) {
+    public ResponseEntity<Destino> updateDestino(@PathVariable Integer id, @RequestBody Destino destinoDetails) {
         return destinoService.findById(id)
                 .map(destino -> {
                     destino.setNombre(destinoDetails.getNombre());
@@ -51,7 +89,7 @@ public class DestinoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDestino(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteDestino(@PathVariable Integer id) {
         return destinoService.findById(id)
                 .map(destino -> {
                     destinoService.deleteById(id);

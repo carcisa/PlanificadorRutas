@@ -26,13 +26,12 @@ public class DestinoServiceImpl implements DestinoService {
     }
 
     @Override
-    public Optional<Destino> findById(Long id) {
+    public Optional<Destino> findById(Integer id) {
         return destinoRepository.findById(id);
     }
 
 
-    @Override
-    public void deleteById(Long id) {
+    public void deleteById(Integer id) {
         destinoRepository.deleteById(id);
     }
 

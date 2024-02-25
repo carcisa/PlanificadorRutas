@@ -43,6 +43,18 @@ public class SecurityConfig {
 				.requestMatchers(HttpMethod.POST, "/api/destinos/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
 				.requestMatchers(HttpMethod.PUT, "/api/destinos/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
 				.requestMatchers(HttpMethod.DELETE, "/api/destinos/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
+				
+				.requestMatchers(HttpMethod.GET, "/api/atracciones/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.POST, "/api/destino/{destino_Id}/atracciones").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.PUT, "/api/atracciones/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.DELETE, "/api/atracciones/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
+				
+				.requestMatchers(HttpMethod.GET, "/api/opiniones/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.POST, "/api/opiniones/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.PUT, "/api/opiniones/**").hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.DELETE, "/api/opiniones/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
+				
+				
 				.requestMatchers(HttpMethod.GET, "/api/admin/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
 				.anyRequest()
 				.authenticated())

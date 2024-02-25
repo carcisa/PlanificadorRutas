@@ -61,8 +61,8 @@ public class InicializarDatos implements CommandLineRunner {
 		List<Atraccion> atracciones = generarAtracciones(50, destinos);
 		atraccionRepository.saveAll(atracciones);
 
-		List<Opinion> opiniones = generarOpiniones(50, usuarios, atracciones);
-		opinionRepository.saveAll(opiniones);
+//		List<Opinion> opiniones = generarOpiniones(50, usuarios, atracciones);
+//		opinionRepository.saveAll(opiniones);
 
 		// Insertar usuarios fijos
 		insertarUsuarioSiNoExiste("admin@example.com", "admin", "admin1234", Role.ROLE_ADMIN);
@@ -138,18 +138,18 @@ public class InicializarDatos implements CommandLineRunner {
 	}
 
 
-	public List<Opinion> generarOpiniones(int cantidad, List<Usuario> usuarios, List<Atraccion> atracciones) {
-		List<Opinion> opiniones = new ArrayList<>();
-		for (int i = 0; i < cantidad; i++) {
-			Opinion opinion = new Opinion(usuarios.get(faker.random().nextInt(usuarios.size())).getId(),
-					atracciones.get(faker.random().nextInt(atracciones.size())).getId(),
-					faker.number().numberBetween(1, 5), faker.lorem().sentence(),
-					faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
-
-			);
-			opiniones.add(opinion);
-		}
-		return opiniones;
-	}
+//	public List<Opinion> generarOpiniones(int cantidad, List<Usuario> usuarios, List<Atraccion> atracciones) {
+//		List<Opinion> opiniones = new ArrayList<>();
+//		for (int i = 0; i < cantidad; i++) {
+//			Opinion opinion = new Opinion(usuarios.get(faker.random().nextInt(usuarios.size())).getId(),
+//					atracciones.get(faker.random().nextInt(atracciones.size())).getId(),
+//					faker.number().numberBetween(1, 5), faker.lorem().sentence(),
+//					faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+//
+//			);
+//			opiniones.add(opinion);
+//		}
+//		return opiniones;
+//	}
 
 }
