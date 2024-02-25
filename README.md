@@ -5,6 +5,7 @@
 - **Atracción:** Representa lugares de interés dentro de un destino. Atributos incluyen ID, nombre, descripción, categoría, dirección, y destino asociado.
 - **Destino:** Define ubicaciones que los usuarios pueden explorar. Incluye ID, nombre, descripción, y una lista de atracciones.
 - **Usuario:** Almacena información de los usuarios, con atributos como ID, nombre de usuario (email), contraseña, y roles para control de acceso.
+ ![Diagrama ER](src/main/resources/img/diagram.png)
 
 ## Relaciones entre Entidades
 
@@ -88,11 +89,14 @@ Establece reglas para proteger endpoints de la API, usando JWT para autenticaci�
 
 - **Diagramas de Clases:** Para el diseño de la estructura de clases que se implementará en Spring Boot.
   
-(Aquí va una imagen)
+![Diagrama ER](src/main/resources/img/diagram(3).png)
+
+
 
 - **Diagrama de Secuencia:** Para mostrar cómo interactúan las diferentes partes del sistema durante una operación típica, como la sugerencia de planes de ocio.
   
-(Aquí va una imagen)
+![Diagrama ER](src/main/resources/img/diagram(4).png)
+
 
 # Lógica de Negocio Adicional
 
