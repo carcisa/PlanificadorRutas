@@ -13,6 +13,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 /**
  * La clase Atraccion representa una entidad de atracción turística mapeada a la tabla 'atracciones' en la base de datos.
@@ -32,12 +35,14 @@ public class Atraccion {
     /**
      * Nombre de la atracción. No puede ser nulo.
      */
+    @NotBlank(message = "El nombre no puede estar vacío")
     @Column(nullable = false)
     private String nombre;
 
     /**
      * Descripción detallada de la atracción. Máximo 1000 caracteres.
      */
+    @Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres")
     @Column(length = 1000)
     private String descripcion;
 
@@ -46,6 +51,7 @@ public class Atraccion {
      */
     @Column(nullable = false)
     @Enumerated(EnumType.STRING) 
+    @NotNull(message = "La categoría no puede ser nula")
     private Categoria categoria;
 
     /**
@@ -58,6 +64,7 @@ public class Atraccion {
      * Destino asociado a la atracción. Se utiliza la anotación JsonBackReference para manejar la referencia inversa
      * y evitar la recursión infinita en la serialización JSON.
      */
+    @NotNull(message = "Debe existir un destino asociado")
     @ManyToOne
     @JoinColumn(name = "destino_id", nullable = false)
     @JsonBackReference

@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import com.entidades.Role;
 import com.entidades.Usuario;
 import com.servicio.UsuarioService;
+import com.usuarioResponse.UsuarioDto;
+
+import jakarta.validation.Valid;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -45,7 +49,7 @@ public class UsuarioController {
 	 * Obtiene un usuario por su ID.
 	 * 
 	 * @param id El ID del usuario a buscar.
-	 * @return ResponseEntity con el usuario encontrado o no encontrado (404).
+	 * @return ResponseEntity con el usuario encontrado(200) o no encontrado (404).
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
@@ -60,9 +64,14 @@ public class UsuarioController {
 	 * @return El usuario creado.
 	 */
 	@PostMapping
-	public Usuario createUsuario(@RequestBody Usuario usuario) {
-		usuario.setRoles(Collections.singleton(Role.ROLE_USER));
-		return usuarioService.save(usuario);
+	public ResponseEntity<Usuario> createUsuario(@Valid @RequestBody UsuarioDto usuarioDto) {
+		Usuario usuario = new Usuario();
+		usuario.setEmail(usuarioDto.getEmail());
+        usuario.setNombreUsuario(usuarioDto.getNombreUsuario());
+        usuario.setPassword(usuarioDto.getPassword());
+        usuario.setRoles(Collections.singleton(Role.ROLE_USER));
+        Usuario nuevoUsuario = usuarioService.save(usuario);
+        return ResponseEntity.ok(nuevoUsuario);
 	}
 
 	/**
@@ -70,7 +79,7 @@ public class UsuarioController {
 	 * 
 	 * @param id             El ID del usuario a actualizar.
 	 * @param usuarioDetails Los detalles actualizados del usuario.
-	 * @return ResponseEntity con el usuario actualizado o no encontrado (404).
+	 * @return ResponseEntity con el usuario actualizado(200) o no encontrado (404).
 	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuarioDetails) {

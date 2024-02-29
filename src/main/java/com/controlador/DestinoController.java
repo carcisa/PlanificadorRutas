@@ -3,11 +3,14 @@ package com.controlador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.entidades.Atraccion;
 import com.entidades.Destino;
 import com.servicio.AtraccionService;
 import com.servicio.DestinoService;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,8 @@ public class DestinoController {
 
     @Autowired
     private final DestinoService destinoService;
+    
+    
 
     /**
      * Constructor para inyectar el servicio de destinos.
@@ -114,13 +119,22 @@ public class DestinoController {
      * @param id El identificador único del destino a eliminar.
      * @return ResponseEntity con código de estado 200 si se elimina con éxito, o no encontrado (404) si no se encuentra el destino.
      */
+    @Transactional
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDestino(@PathVariable Integer id) {
+//    	if (destinoService.findById(id).isPresent()) {
+//    		destinoService.deleteById(id);
+//    		return ResponseEntity.ok().build();
+//    	} else {
+//			return ResponseEntity.notFound().build();
+//		}
         return destinoService.findById(id)
                 .map(destino -> {
                     destinoService.deleteById(id);
-                    return ResponseEntity.ok().<Void>build();
+                    return ResponseEntity.noContent().<Void>build();
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+    
+  
 }

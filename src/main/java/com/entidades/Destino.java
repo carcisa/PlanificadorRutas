@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * La clase Destino representa un destino turístico, mapeado a la tabla 'destinos' en la base de datos.
@@ -33,12 +35,14 @@ public class Destino {
     /**
      * Nombre del destino. No puede ser nulo.
      */
+    @NotBlank(message = "El nombre del destino no puede estar vacío")
     @Column(nullable = false)
     private String nombre;
 
     /**
      * Descripción breve del destino. Máximo 500 caracteres.
      */
+    @Size(max = 500, message = "La descripción no puede superar los 500 caracteres")
     @Column(length = 500)
     private String descripcion;
 

@@ -1,100 +1,60 @@
 package com.usuarioResponse;
 
-/**
- * Clase que representa la respuesta de usuario utilizada para transferir la información del usuario.
- * Incluye el primer nombre, apellido, correo electrónico y el rol del usuario.
- */
-public class UsuarioResponse {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String rol;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-    /**
-     * Constructor para crear una respuesta de usuario con todos los detalles necesarios.
-     * 
-     * @param firstName El primer nombre del usuario.
-     * @param lastName El apellido del usuario.
-     * @param email El correo electrónico del usuario.
-     * @param rol El rol del usuario dentro del sistema.
-     */
-    public UsuarioResponse(String firstName, String lastName, String email, String rol) {
-        super();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.rol = rol;
-    }
+public class UsuarioDto {
 
-    /**
-     * Obtiene el primer nombre del usuario.
-     * 
-     * @return El primer nombre del usuario.
-     */
-    public String getFirstName() {
-        return firstName;
-    }
+	@NotBlank(message = "El nombre de usuario no puede estar vacío")
+	private String nombreUsuario;
 
-    /**
-     * Establece el primer nombre del usuario.
-     * 
-     * @param firstName El primer nombre a establecer.
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	@NotBlank(message = "El correo electrónico no puede estar vacío")
+	@Email(message = "Formato de correo electrónico inválido")
+	private String email;
 
-    /**
-     * Obtiene el apellido del usuario.
-     * 
-     * @return El apellido del usuario.
-     */
-    public String getLastName() {
-        return lastName;
-    }
+	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+	private String password;
 
-    /**
-     * Establece el apellido del usuario.
-     * 
-     * @param lastName El apellido a establecer.
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+	public UsuarioDto() {
 
-    /**
-     * Obtiene el correo electrónico del usuario.
-     * 
-     * @return El correo electrónico del usuario.
-     */
-    public String getEmail() {
-        return email;
-    }
+	}
 
-    /**
-     * Establece el correo electrónico del usuario.
-     * 
-     * @param email El correo electrónico a establecer.
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public UsuarioDto(@NotBlank(message = "El nombre de usuario no puede estar vacío") String nombreUsuario,
+			@NotBlank(message = "El correo electrónico no puede estar vacío") 
+	        @Email(message = "Formato de correo electrónico inválido") String email,
+			@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres") String password) {
+		this.nombreUsuario = nombreUsuario;
+		this.email = email;
+		this.password = password;
+	}
+	
+	
 
-    /**
-     * Obtiene el rol del usuario dentro del sistema.
-     * 
-     * @return El rol del usuario.
-     */
-    public String getRol() {
-        return rol;
-    }
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
 
-    /**
-     * Establece el rol del usuario dentro del sistema.
-     * 
-     * @param rol El rol a establecer.
-     */
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+
 }

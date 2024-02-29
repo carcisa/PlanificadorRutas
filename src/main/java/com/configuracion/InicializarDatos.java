@@ -50,8 +50,6 @@ public class InicializarDatos implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 
-		
-
 		// Generar e insertar usuarios aleatorios
 		List<Usuario> usuarios = generarUsuarios(50);
 		for (Usuario usuario : usuarios) {
