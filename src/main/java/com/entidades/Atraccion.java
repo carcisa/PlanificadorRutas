@@ -155,24 +155,4 @@ public class Atraccion {
 				+ ", getDestino()=" + getDestino() + "]";
 	}
 
-
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

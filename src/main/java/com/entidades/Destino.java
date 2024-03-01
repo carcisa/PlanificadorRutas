@@ -140,12 +140,5 @@ public class Destino {
         atraccion.setDestino(this);
         atracciones.add(atraccion);
     }
-
-	
-
-
-	
-
-   
   
 }
