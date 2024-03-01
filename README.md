@@ -17,12 +17,6 @@
 - Un **Destino** contiene múltiples **Atracciones**.
 - **Atracciones** están categorizadas y pueden ser seleccionadas para formar un plan de ocio.
 
-# Diseño de la Base de Datos
-
-Considerando MySQL como sistema de gestión de base de datos, el diseño de la base de datos debe reflejar las entidades y relaciones mencionadas. Esto incluye:
-
-- Tablas para **Usuarios**, **Destinos**, y **Atracciones**.
-- Relaciones definidas a través de claves foráneas, por ejemplo, una clave foránea en **Atracciones** apuntando al **Destino** correspondiente.
 
 # Funcionalidades y API Endpoints
 
@@ -63,27 +57,7 @@ Considerando MySQL como sistema de gestión de base de datos, el diseño de la b
 
 - Listar atracciones por destino (GET `/destinos/{id}/atracciones`)
 - Añadir atracción por destino (POST `/destinos/{id}/atracciones`)
-- Sugerir planes de ocio combinando atracciones de diferentes categorías por destino (GET `/destinos/{id}/planes`)
 
-# Documentación y Diagramas
-
-## Controladores
-
-### AtraccionController:
-
-- Endpoints para listar todas las atracciones, obtener, crear, actualizar, y eliminar una atracción por ID.
-
-### DestinoController:
-
-- Endpoints para listar todos los destinos y sus atracciones, obtener, crear, actualizar, y eliminar un destino por ID.
-
-### UsuarioController:
-
-- Endpoints para listar todos los usuarios, obtener, crear, actualizar, y eliminar un usuario por ID.
-
-## Configuración de Seguridad (SecurityConfig)
-
-Establece reglas para proteger endpoints de la API, usando JWT para autenticación. Define permisos basados en roles para operaciones CRUD en los endpoints relacionados con usuarios, destinos, y atracciones. Utiliza BCryptPasswordEncoder para la seguridad de las contraseñas.
 
 ## Diagramas
 
@@ -103,7 +77,7 @@ Establece reglas para proteger endpoints de la API, usando JWT para autenticaci�
 
 
 # Lógica de Negocio Adicional
-
+- Sugerir planes de ocio combinando atracciones de diferentes categorías por destino (GET `/destinos/{id}/planes`)
 - Implementación de seguridad y autenticación, posiblemente usando JWT para manejar sesiones de usuario y admin.
 - Algoritmos para sugerir planes de ocio, considerando las preferencias del usuario y la disponibilidad de atracciones en cada categoría.
 - Algoritmos para sugerir planes de ocio, considerando un presupuesto sugerido por el usuario.
