@@ -9,7 +9,7 @@
 - **Destino:** Define ubicaciones que los usuarios pueden explorar. Incluye ID, nombre, descripción, y una lista de atracciones.
 - **Usuario:** Almacena información de los usuarios, con atributos como ID, nombre de usuario (email), contraseña, y roles para control de acceso.
   
- [Diagrama ER](https://drive.google.com/file/d/1u3MFC_jUkMNCPc2Y3oPtk-zUDk0g5mYE/view?usp=sharing)
+[Diagrama ER](https://drive.google.com/file/d/1u3MFC_jUkMNCPc2Y3oPtk-zUDk0g5mYE/view?usp=sharing)
 
 ## Relaciones entre Entidades
 
@@ -62,18 +62,17 @@
 ## Diagramas
 
 - **Diagrama de Entidad-Relación (ER):** Para visualizar las entidades y sus relaciones.
-![Diagrama ER](https://drive.google.com/file/d/1hUhXwTkyBtyMxxrgeQftaPUANLEojDD9/view?usp=sharing)
+[Diagrama ER](https://drive.google.com/file/d/1hUhXwTkyBtyMxxrgeQftaPUANLEojDD9/view?usp=sharing)
   
 
 
 - **Diagramas de Clases:** Para el diseño de la estructura de clases que se implementará en Spring Boot.
-![Diagrama ER](https://drive.google.com/file/d/1j6e6geeHSSqB5zSsdetImg_hA4hjaaD5/view?usp=sharing)
+[Diagrama ER](https://drive.google.com/file/d/1j6e6geeHSSqB5zSsdetImg_hA4hjaaD5/view?usp=sharing)
 
 
 
-- **Diagrama de Secuencia:** Para mostrar cómo interactúan las diferentes partes del sistema durante una operación típica, como la sugerencia de planes de ocio.
-  
-![Diagrama ER](https://drive.google.com/file/d/1Xto0YVP_WQnAOc7d-pVKhr2gEZnkS6O6/view?usp=sharing)
+- **Diagrama de Secuencia:** Para mostrar cómo interactúan las diferentes partes del sistema durante una operación típica,     como la sugerencia de planes de ocio.
+[Diagrama ER](https://drive.google.com/file/d/1Xto0YVP_WQnAOc7d-pVKhr2gEZnkS6O6/view?usp=sharing)
 
 
 # Lógica de Negocio Adicional
