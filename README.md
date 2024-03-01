@@ -1,3 +1,6 @@
+## Enlace a colección de Postman
+[Postman](https://documenter.getpostman.com/view/32189041/2sA2rGwKgP)
+
 # Definición de Entidades
 
 **Entidades:**
@@ -5,7 +8,8 @@
 - **Atracción:** Representa lugares de interés dentro de un destino. Atributos incluyen ID, nombre, descripción, categoría, dirección, y destino asociado.
 - **Destino:** Define ubicaciones que los usuarios pueden explorar. Incluye ID, nombre, descripción, y una lista de atracciones.
 - **Usuario:** Almacena información de los usuarios, con atributos como ID, nombre de usuario (email), contraseña, y roles para control de acceso.
- ![Diagrama ER](src/main/resources/img/diagram.png)
+  
+ [Diagrama ER](https://drive.google.com/file/d/1u3MFC_jUkMNCPc2Y3oPtk-zUDk0g5mYE/view?usp=sharing)
 
 ## Relaciones entre Entidades
 
@@ -84,18 +88,18 @@ Establece reglas para proteger endpoints de la API, usando JWT para autenticaci�
 ## Diagramas
 
 - **Diagrama de Entidad-Relación (ER):** Para visualizar las entidades y sus relaciones.
+![Diagrama ER](https://drive.google.com/file/d/1hUhXwTkyBtyMxxrgeQftaPUANLEojDD9/view?usp=sharing)
   
-(Aquí va una imagen)
+
 
 - **Diagramas de Clases:** Para el diseño de la estructura de clases que se implementará en Spring Boot.
-  
-![Diagrama ER](src/main/resources/img/diagram_01.png)
+![Diagrama ER](https://drive.google.com/file/d/1j6e6geeHSSqB5zSsdetImg_hA4hjaaD5/view?usp=sharing)
 
 
 
 - **Diagrama de Secuencia:** Para mostrar cómo interactúan las diferentes partes del sistema durante una operación típica, como la sugerencia de planes de ocio.
   
-![Diagrama ER](src/main/resources/img/diagram_02.png)
+![Diagrama ER](https://drive.google.com/file/d/1Xto0YVP_WQnAOc7d-pVKhr2gEZnkS6O6/view?usp=sharing)
 
 
 # Lógica de Negocio Adicional
