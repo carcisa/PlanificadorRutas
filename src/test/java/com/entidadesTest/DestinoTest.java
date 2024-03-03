@@ -1,42 +1,52 @@
 package com.entidadesTest;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
+import com.entidades.Atraccion;
 import com.entidades.Destino;
-import com.repositorio.DestinoRepository;
-import com.servicio.DestinoService;
 
-@SpringBootTest
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
 public class DestinoTest {
 
-	@MockBean
-	private DestinoRepository destinoRepository;
+    private static Validator validator;
 
-	@InjectMocks
-	private DestinoService destinoService;
+    @BeforeAll
+    public static void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
 
-	@Test
-	public void testAgregarDestino() {
-		Destino destino = new Destino();
-		destino.setNombre("DestinoTest");
-		destino.setDescripcion("Descripción test");
-		destino.setAtracciones(new ArrayList<>());
+    @Test
+    public void nombreNoPuedeEstarVacio() {
+        Destino destino = new Destino("", "Descripción válida");
+        var violations = validator.validate(destino);
+        assertFalse(violations.isEmpty());
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("El nombre del destino no puede estar vacío")));
+    }
 
-		when(destinoRepository.save(any(Destino.class))).thenReturn(destino);
+    @Test
+    public void descripcionLargaInvalida() {
+        String descripcionLarga = "a".repeat(501); // Crea una cadena de 501 caracteres
+        Destino destino = new Destino("Destino Válido", descripcionLarga);
+        var violations = validator.validate(destino);
+        assertFalse(violations.isEmpty());
+        assertTrue(violations.stream().anyMatch(v -> v.getMessage().contains("La descripción no puede superar los 500 caracteres")));
+    }
 
-		Destino creado = destinoService.save(destino);
+    @Test
+    public void destinoValido() {
+        Destino destino = new Destino("Destino Válido", "Descripción válida");
+        var violations = validator.validate(destino);
+        assertTrue(violations.isEmpty(), "No debería haber violaciones de validación cuando todos los campos son válidos");
+    }
 
-		verify(destinoRepository).save(destino);
-		assert (creado.getNombre().equals(destino.getNombre()));
-	}
-
+   
 }
+

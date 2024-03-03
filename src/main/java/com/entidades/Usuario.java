@@ -21,6 +21,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
  * La clase Usuario representa un usuario de la aplicación, implementando la interfaz UserDetails para integrarse con Spring Security.
@@ -43,18 +46,22 @@ public class Usuario implements UserDetails {
      * Nombre de usuario, único y no nulo.
      */
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "El nombre de usuario no puede estar vacío")
     private String nombreUsuario;
 
     /**
      * Correo electrónico del usuario, único y no nulo.
      */
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "El correo electrónico no puede estar vacío")
+	@Email(message = "Formato de correo electrónico inválido")
     private String email;
 
     /**
      * Contraseña del usuario, no nula.
      */
     @Column(nullable = false)
+	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
     private String password;
 
     /**
