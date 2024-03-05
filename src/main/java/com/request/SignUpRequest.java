@@ -25,7 +25,10 @@ public class SignUpRequest {
      */
     private String password;
 
-    /**
+    public SignUpRequest(String string, String string2, String string3, String string4) {
+	}
+
+	/**
      * Obtiene el primer nombre del usuario.
      * 
      * @return El primer nombre del usuario.

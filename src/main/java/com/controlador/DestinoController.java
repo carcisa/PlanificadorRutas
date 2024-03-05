@@ -86,7 +86,7 @@ public class DestinoController {
      * @return ResponseEntity con la atracción agregada y estado CREATED si el destino existe, o notFound si el destino no existe.
      */
     @PostMapping("/{destino_Id}/atracciones")
-    public Object addAtraccionToDestino(@PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
+    public ResponseEntity<Atraccion> addAtraccionToDestino(@PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
         return destinoService.findById(destino_Id).map(destino -> {
             destino.agregarAtraccion(atraccion);
             destinoService.save(destino);

@@ -10,6 +10,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.error.atraccion.AtraccionDatosNoValidosException;
+import com.error.atraccion.AtraccionDuplicadaException;
+import com.error.atraccion.AtraccionNoEncontradaException;
+import com.error.atraccion.ListaAtraccionesVaciaException;
+import com.error.destino.DestinoDatosNoValidosException;
+import com.error.destino.DestinoDuplicadoException;
+import com.error.destino.DestinoNoEncontradoException;
+import com.error.destino.ListaDestinoVaciaException;
+import com.error.usuario.ListaUsuariosVaciaException;
+import com.error.usuario.UsuarioDatosNoValidosException;
+import com.error.usuario.UsuarioDuplicadoException;
+import com.error.usuario.UsuarioNoEncontradoException;
+
 
 
 @ControllerAdvice
@@ -28,59 +41,238 @@ public class GlobalExceptionHandler {
 	        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
 	    }
     
-    /**
-     * ###################################################
-     * #        Usuario 404  Not Found Exception           ##
-     * ###################################################
-     * @param ex
-     * @param request
-     * @return
-     */
-    @ExceptionHandler(UsuarioNotFoundException.class)
-    public ResponseEntity<ErrorDetailsResponse> handleUsuarioNotFoundException(UsuarioNotFoundException ex, WebRequest request) {
-    	ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
-            new Date(),
-            ex.getMessage(),
-            request.getDescription(false));
-
-        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
-    }
     
     /**
-     * ###################################################
-     * #        Destino 404  Not Found Exception           ##
-     * ###################################################
-     * @param ex
-     * @param request
-     * @return
+     * ####################################################
+     * #       "Lista de Usuarios vacía" Exception 404    ##
+     * #####################################################
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
      */
-    @ExceptionHandler(DestinoNotFoundException.class)
-    public ResponseEntity<ErrorDetailsResponse> handleDestinoNotFoundException(DestinoNotFoundException ex, WebRequest request) {
-    	ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
-            new Date(),
-            ex.getMessage(),
-            request.getDescription(false));
+    @ExceptionHandler(ListaUsuariosVaciaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarListaUsuariosVaciaException(ListaUsuariosVaciaException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
 
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
     
     /**
      * ####################################################
-     * #       "Ruta no encontrada" Exception 404        ##
+     * #       "Lista de Destino vacía" Exception 404    ##
      * #####################################################
-     * @param ex
-     * @param request
-     * @return
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
      */
-    @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ErrorDetailsResponse> handleNoHandlerFoundException(NoHandlerFoundException ex, WebRequest request) {
-    	ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
-            new Date(),
-            "Ruta no encontrada",
-            ex.getRequestURL());
+    @ExceptionHandler(ListaDestinoVaciaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarListaDestinoVaciaException(ListaDestinoVaciaException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
 
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+    
+    /**
+     * ####################################################
+     * #       "Lista de Atracciones vacía" Exception 404    ##
+     * #####################################################
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(ListaAtraccionesVaciaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarListaAtraccionesVaciaException(ListaAtraccionesVaciaException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+    
+    /**
+     * ####################################################
+     * #       Excepción 404: "Usuario no encontrado"   ##
+     * ####################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(UsuarioNoEncontradoException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarUsuarioNoEncontradoException(UsuarioNoEncontradoException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * ####################################################
+     * #       Excepción 404: "Destino no encontrado"     ##
+     * ####################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(DestinoNoEncontradoException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarDestinoNoEncontradoException(DestinoNoEncontradoException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * ####################################################
+     * #       Excepción 404: "Atracción no encontrada"   ##
+     * ####################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(AtraccionNoEncontradaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarAtraccionNoEncontradaException(AtraccionNoEncontradaException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+  
+    
+    /**
+     * ##########################################################
+     * #       Excepción 409: "Destino duplicado"              ##
+     * ##########################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(DestinoDuplicadoException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarDestinoDuplicadoException(DestinoDuplicadoException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+    }
+    
+    /**
+     * ##########################################################
+     * #       Excepción 409: "Usuario duplicado"              ##
+     * ##########################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(UsuarioDuplicadoException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarUsuarioDuplicadoException(UsuarioDuplicadoException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+    }
+
+    
+    /**
+     * ##########################################################
+     * #       Excepción 409: "Atracción duplicada"            ##
+     * ##########################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(AtraccionDuplicadaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarAtraccionDuplicadaException(AtraccionDuplicadaException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+    }
+
+    /**
+     * ####################################################
+     * #       Excepción 400: "Datos de usuario no válidos"       ##
+     * ####################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(UsuarioDatosNoValidosException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarUsuarioDatosNoValidosException(UsuarioDatosNoValidosException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    /**
+     * ####################################################
+     * #       Excepción 400: "Datos de destino no válidos"       ##
+     * ####################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(DestinoDatosNoValidosException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarDestinoDatosNoValidosException(DestinoDatosNoValidosException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    
+    /**
+     * ####################################################
+     * #       Excepción 400: "Datos de atracción no válidos"     ##
+     * ####################################################
+     * 
+     * @param ex La excepción que fue lanzada.
+     * @param request La solicitud web actual.
+     * @return Un objeto ResponseEntity que contiene los detalles del error.
+     */
+    @ExceptionHandler(AtraccionDatosNoValidosException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarAtraccionDatosNoValidosException(AtraccionDatosNoValidosException ex, WebRequest request) {
+        ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    
+    
     /**
      * ####################################################
      * #     "Error interno del servidor" Exception 500   ##

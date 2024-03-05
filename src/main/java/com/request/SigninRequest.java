@@ -16,7 +16,11 @@ public class SigninRequest {
      */
     private String password;
 
-    /**
+    public SigninRequest(String string, String string2) {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Obtiene el correo electrónico del usuario.
      * 
      * @return El correo electrónico del usuario.

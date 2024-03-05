@@ -136,7 +136,35 @@ public class JwtServiceImpl implements JwtService {
      */
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
+        System.out.println("Longitud de la clave en bytes: " + keyBytes.length); // Solo para depuración
+        if (keyBytes.length < 32) { // 256 bits = 32 bytes
+            throw new IllegalArgumentException("La clave proporcionada es demasiado corta. Debe tener al menos 256 bits.");
+        }
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+        
+    public void setJwtSigningKey(String jwtSigningKey) {
+        this.jwtSigningKey = jwtSigningKey;
+    }
+
+    /**
+     * Genera un token JWT con reclamaciones adicionales para un usuario específico
+     * y una fecha de expiración personalizada.
+     *
+     * @param userDetails Los detalles del usuario para el cual generar el token.
+     * @param expirationDate La fecha de expiración del token.
+     * @return Un nuevo token JWT.
+     */
+    public String generateTokenWithCustomExpiration(UserDetails userDetails, Date expirationDate) {
+        Map<String, Object> claims = new HashMap<>();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(expirationDate)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
 	

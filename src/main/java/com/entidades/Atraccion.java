@@ -18,91 +18,92 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 /**
- * La clase Atraccion representa una entidad de atracción turística mapeada a la tabla 'atracciones' en la base de datos.
- * Incluye detalles como el nombre, descripción, categoría, dirección, y su destino asociado.
+ * La clase Atraccion representa una entidad de atracción turística mapeada a la
+ * tabla 'atracciones' en la base de datos. Incluye detalles como el nombre,
+ * descripción, categoría, dirección, y su destino asociado.
  */
 @Entity
 @Table(name = "atracciones")
 public class Atraccion {
 
-    /**
-     * Identificador único de la atracción, generado automáticamente.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	/**
+	 * Identificador único de la atracción, generado automáticamente.
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    /**
-     * Nombre de la atracción. No puede ser nulo.
-     */
-    @NotBlank(message = "El nombre no puede estar vacío")
-    @Column(nullable = false)
-    private String nombre;
+	/**
+	 * Nombre de la atracción. No puede ser nulo.
+	 */
+	@NotBlank(message = "El nombre no puede estar vacío")
+	@Column(nullable = false)
+	private String nombre;
 
-    /**
-     * Descripción detallada de la atracción. Máximo 1000 caracteres.
-     */
-    @Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres")
-    @Column(length = 1000)
-    private String descripcion;
+	/**
+	 * Descripción detallada de la atracción. Máximo 1000 caracteres.
+	 */
+	@Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres")
+	@Column(length = 1000)
+	private String descripcion;
 
-    /**
-     * Categoría de la atracción, representada por un enum. No puede ser nulo.
-     */
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING) 
-    @NotNull(message = "La categoría no puede ser nula")
-    private Categoria categoria;
+	/**
+	 * Categoría de la atracción, representada por un enum. No puede ser nulo.
+	 */
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	@NotNull(message = "La categoría no puede ser nula")
+	private Categoria categoria;
 
-    /**
-     * Dirección física de la atracción.
-     */
-    @Column
-    private String direccion;
+	/**
+	 * Dirección física de la atracción.
+	 */
+	@Column
+	private String direccion;
 
-    /**
-     * Destino asociado a la atracción. Se utiliza la anotación JsonBackReference para manejar la referencia inversa
-     * y evitar la recursión infinita en la serialización JSON.
-     */
-    @NotNull(message = "Debe existir un destino asociado")
-    @ManyToOne
-    @JoinColumn(name = "destino_id", nullable = false)
-    @JsonBackReference
-    private Destino destino;
-    
-    /**
-     * Constructor por defecto.
-     */
-    public Atraccion() {
-    }
-    
-    /**
-     * Constructor con todos los atributos de la clase.
-     * @param nombre Nombre de la atracción.
-     * @param descripcion Descripción de la atracción.
-     * @param categoria Categoría de la atracción.
-     * @param direccion Dirección de la atracción.
-     * @param destino Destino asociado a la atracción.
-     */
-    public Atraccion(String nombre, String descripcion, Categoria categoria, String direccion, Destino destino) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.direccion = direccion;
-        this.destino = destino;
-    }
+	/**
+	 * Destino asociado a la atracción. Se utiliza la anotación JsonBackReference
+	 * para manejar la referencia inversa y evitar la recursión infinita en la
+	 * serialización JSON.
+	 */
+	@NotNull(message = "Debe existir un destino asociado")
+	@ManyToOne
+	@JoinColumn(name = "destino_id", nullable = false)
+	@JsonBackReference
+	private Destino destino;
 
+	/**
+	 * Constructor por defecto.
+	 * 
+	 */
+	public Atraccion() {
 
+	}
+
+	/**
+	 * Constructor con todos los atributos de la clase.
+	 * 
+	 * @param nombre      Nombre de la atracción.
+	 * @param descripcion Descripción de la atracción.
+	 * @param categoria   Categoría de la atracción.
+	 * @param direccion   Dirección de la atracción.
+	 * @param destino     Destino asociado a la atracción.
+	 */
+	public Atraccion(String nombre, String descripcion, Categoria categoria, String direccion, Destino destino) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.categoria = categoria;
+		this.direccion = direccion;
+		this.destino = destino;
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getNombre() {
 		return nombre;
@@ -145,9 +146,11 @@ public class Atraccion {
 	}
 
 	/**
-     * Representación en cadena de la entidad Atraccion, incluyendo todos sus atributos.
-     * @return Cadena que representa la entidad Atraccion.
-     */
+	 * Representación en cadena de la entidad Atraccion, incluyendo todos sus
+	 * atributos.
+	 * 
+	 * @return Cadena que representa la entidad Atraccion.
+	 */
 	@Override
 	public String toString() {
 		return "Atraccion [getId()=" + getId() + ", getNombre()=" + getNombre() + ", getDescripcion()="

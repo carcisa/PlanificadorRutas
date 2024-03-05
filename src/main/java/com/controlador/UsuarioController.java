@@ -41,8 +41,8 @@ public class UsuarioController {
 	 * @return Lista de todos los usuarios.
 	 */
 	@GetMapping("/")
-	public List<Usuario> getAllUsuarios() {
-		return usuarioService.findAll();
+	public ResponseEntity<List<Usuario>> getAllUsuarios() {
+		return ResponseEntity.ok(usuarioService.findAll());
 	}
 
 	/**
