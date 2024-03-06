@@ -14,5 +14,5 @@ public interface UsuarioService {
     void deleteById(Integer id);
 	Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 	UserDetailsService userDetailsService();
-
+	
 }

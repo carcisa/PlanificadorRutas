@@ -6,11 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.entidades.Role;
 import com.entidades.Usuario;
+import com.error.usuario.ListaUsuariosVaciaException;
+import com.error.usuario.UsuarioNoEncontradoException;
 import com.servicio.UsuarioService;
 import com.usuarioResponse.UsuarioDto;
 
 import jakarta.validation.Valid;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -42,9 +45,14 @@ public class UsuarioController {
 	 */
 	@GetMapping("/")
 	public ResponseEntity<List<Usuario>> getAllUsuarios() {
-		return ResponseEntity.ok(usuarioService.findAll());
+	    List<Usuario> usuarios = usuarioService.findAll(); 
+	    if (usuarios.isEmpty()) {
+	         throw new ListaUsuariosVaciaException("El listado de usuarios está vacío");
+	    }
+	    return ResponseEntity.ok(usuarios);
 	}
-
+	
+	
 	/**
 	 * Obtiene un usuario por su ID.
 	 * 
@@ -54,7 +62,7 @@ public class UsuarioController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
 		Optional<Usuario> usuario = usuarioService.findById(id);
-		return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+		return usuario.map(ResponseEntity::ok).orElseThrow(() ->  new UsuarioNoEncontradoException("El usuario no existe" + id));
 	}
 
 	/**

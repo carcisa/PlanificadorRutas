@@ -7,8 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.entidades.Atraccion;
 import com.entidades.Destino;
+import com.entidades.Usuario;
+import com.error.destino.DestinoNoEncontradoException;
+import com.error.usuario.ListaUsuariosVaciaException;
+import com.error.usuario.UsuarioNoEncontradoException;
 import com.servicio.AtraccionService;
 import com.servicio.DestinoService;
+
+import jakarta.validation.Valid;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,6 +48,10 @@ public class DestinoController {
      */
     @GetMapping("/")
     public List<Destino> getAllDestinos() {
+    	List<Destino> destinos = destinoService.findAll(); 
+	    if (destinos.isEmpty()) {
+	         throw new ListaUsuariosVaciaException("El listado de usuarios está vacío");
+	    }
         return destinoService.findAll();
     }
 
@@ -54,7 +64,7 @@ public class DestinoController {
     public ResponseEntity<Destino> getDestinoById(@PathVariable Integer id) {
         return destinoService.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() ->  new DestinoNoEncontradoException("El destino no existe" + id));
     }
 
     /**
@@ -86,7 +96,7 @@ public class DestinoController {
      * @return ResponseEntity con la atracción agregada y estado CREATED si el destino existe, o notFound si el destino no existe.
      */
     @PostMapping("/{destino_Id}/atracciones")
-    public ResponseEntity<Atraccion> addAtraccionToDestino(@PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
+    public ResponseEntity<Atraccion> addAtraccionToDestino(@Valid @PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
         return destinoService.findById(destino_Id).map(destino -> {
             destino.agregarAtraccion(atraccion);
             destinoService.save(destino);
@@ -102,7 +112,7 @@ public class DestinoController {
      */
 	
     @PutMapping("/{id}")
-    public ResponseEntity<Destino> updateDestino(@PathVariable Integer id, @RequestBody Destino destinoDetails) {
+    public ResponseEntity<Destino> updateDestino(@Valid @PathVariable Integer id, @RequestBody Destino destinoDetails) {
         return destinoService.findById(id)
                 .map(destino -> {
                     destino.setNombre(destinoDetails.getNombre());

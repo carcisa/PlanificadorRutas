@@ -77,7 +77,6 @@ public class UsuarioServiceImpl implements UsuarioService {
      */
     @Override
     public Optional<Usuario> findByNombreUsuario(String nombreUsuario) {
-        // Implementación de ejemplo, podría modificarse para buscar realmente por nombre de usuario.
         return Optional.empty();
     }
 
@@ -90,5 +89,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return email -> usuarioRepository.findByEmail(email)
                         .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con el correo: " + email));
     }
+
+	
 }
 
