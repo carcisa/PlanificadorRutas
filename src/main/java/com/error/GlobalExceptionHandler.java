@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.error.atraccion.AtraccionDatosNoValidosException;
-import com.error.atraccion.AtraccionDuplicadaException;
-import com.error.atraccion.AtraccionNoEncontradaException;
-import com.error.atraccion.ListaAtraccionesVaciaException;
+import com.error.actividad.ActividadDatosNoValidosException;
+import com.error.actividad.ActividadDuplicadaException;
+import com.error.actividad.ActividadNoEncontradaException;
+import com.error.actividad.ListaActividadesVaciaException;
 import com.error.destino.DestinoDatosNoValidosException;
 import com.error.destino.DestinoDuplicadoException;
 import com.error.destino.DestinoNoEncontradoException;
@@ -80,14 +80,14 @@ public class GlobalExceptionHandler {
     
     /**
      * ####################################################
-     * #       "Lista de Atracciones vacía" Exception 404    ##
+     * #       "Lista de Actividades vacía" Exception 404    ##
      * #####################################################
      * @param ex La excepción que fue lanzada.
      * @param request La solicitud web actual.
      * @return Un objeto ResponseEntity que contiene los detalles del error.
      */
-    @ExceptionHandler(ListaAtraccionesVaciaException.class)
-    public ResponseEntity<ErrorDetailsResponse> manejarListaAtraccionesVaciaException(ListaAtraccionesVaciaException ex, WebRequest request) {
+    @ExceptionHandler(ListaActividadesVaciaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarListaActividadesVaciaException(ListaActividadesVaciaException ex, WebRequest request) {
         ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
                 new Date(),
                 ex.getMessage(),
@@ -136,15 +136,15 @@ public class GlobalExceptionHandler {
 
     /**
      * ####################################################
-     * #       Excepción 404: "Atracción no encontrada"   ##
+     * #       Excepción 404: "Actividad no encontrada"   ##
      * ####################################################
      * 
      * @param ex La excepción que fue lanzada.
      * @param request La solicitud web actual.
      * @return Un objeto ResponseEntity que contiene los detalles del error.
      */
-    @ExceptionHandler(AtraccionNoEncontradaException.class)
-    public ResponseEntity<ErrorDetailsResponse> manejarAtraccionNoEncontradaException(AtraccionNoEncontradaException ex, WebRequest request) {
+    @ExceptionHandler(ActividadNoEncontradaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarActividadNoEncontradaException(ActividadNoEncontradaException ex, WebRequest request) {
         ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
                 new Date(),
                 ex.getMessage(),
@@ -196,15 +196,15 @@ public class GlobalExceptionHandler {
     
     /**
      * ##########################################################
-     * #       Excepción 409: "Atracción duplicada"            ##
+     * #       Excepción 409: "Actividad duplicada"            ##
      * ##########################################################
      * 
      * @param ex La excepción que fue lanzada.
      * @param request La solicitud web actual.
      * @return Un objeto ResponseEntity que contiene los detalles del error.
      */
-    @ExceptionHandler(AtraccionDuplicadaException.class)
-    public ResponseEntity<ErrorDetailsResponse> manejarAtraccionDuplicadaException(AtraccionDuplicadaException ex, WebRequest request) {
+    @ExceptionHandler(ActividadDuplicadaException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarActividadDuplicadaException(ActividadDuplicadaException ex, WebRequest request) {
         ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
                 new Date(),
                 ex.getMessage(),
@@ -254,15 +254,15 @@ public class GlobalExceptionHandler {
     
     /**
      * ####################################################
-     * #       Excepción 400: "Datos de atracción no válidos"     ##
+     * #       Excepción 400: "Datos de actividad no válidos"     ##
      * ####################################################
      * 
      * @param ex La excepción que fue lanzada.
      * @param request La solicitud web actual.
      * @return Un objeto ResponseEntity que contiene los detalles del error.
      */
-    @ExceptionHandler(AtraccionDatosNoValidosException.class)
-    public ResponseEntity<ErrorDetailsResponse> manejarAtraccionDatosNoValidosException(AtraccionDatosNoValidosException ex, WebRequest request) {
+    @ExceptionHandler(ActividadDatosNoValidosException.class)
+    public ResponseEntity<ErrorDetailsResponse> manejarActividadDatosNoValidosException(ActividadDatosNoValidosException ex, WebRequest request) {
         ErrorDetailsResponse errorDetails = new ErrorDetailsResponse(
                 new Date(),
                 ex.getMessage(),

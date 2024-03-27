@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.entidades.Atraccion;
+import com.entidades.Actividad;
 import com.entidades.Destino;
 
 import jakarta.validation.Valid;

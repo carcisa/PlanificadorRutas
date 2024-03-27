@@ -5,13 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import com.entidades.Atraccion;
+import com.entidades.Actividad;
 import com.entidades.Destino;
 import com.entidades.Usuario;
 import com.error.destino.DestinoNoEncontradoException;
 import com.error.usuario.ListaUsuariosVaciaException;
 import com.error.usuario.UsuarioNoEncontradoException;
-import com.servicio.AtraccionService;
+import com.servicio.ActividadService;
 import com.servicio.DestinoService;
 
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 /**
  * Controlador REST para gestionar destinos.
- * Proporciona endpoints para operaciones CRUD sobre destinos, incluyendo la gestión de atracciones asociadas.
+ * Proporciona endpoints para operaciones CRUD sobre destinos, incluyendo la gestión de actividades asociadas.
  */
 @RestController
 @RequestMapping("/api/destinos")
@@ -68,15 +68,15 @@ public class DestinoController {
     }
 
     /**
-     * Obtiene las atracciones asociadas a un destino específico por el identificador del destino.
+     * Obtiene las actividades asociadas a un destino específico por el identificador del destino.
      * @param id El identificador único del destino.
-     * @return ResponseEntity con una lista de atracciones si el destino existe, o vacío si no existe.
+     * @return ResponseEntity con una lista de actividades si el destino existe, o vacío si no existe.
      */
-    @GetMapping("/{id}/atracciones")
-    public ResponseEntity<List<Atraccion>> AtraccionesGetDestinoById(@PathVariable Integer id) {
+    @GetMapping("/{id}/actividades")
+    public ResponseEntity<List<Actividad>> ActividadesGetDestinoById(@PathVariable Integer id) {
         Optional<Destino> destino = destinoService.findById(id);
-        List<Atraccion> atracciones = destino.get().getAtracciones();
-        return ResponseEntity.ok(atracciones);
+        List<Actividad> actividades = destino.get().getActividades();
+        return ResponseEntity.ok(actividades);
     }
 
     /**
@@ -90,17 +90,17 @@ public class DestinoController {
     }
 
     /**
-     * Agrega una atracción a un destino existente.
-     * @param destino_Id El identificador del destino al que se agrega la atracción.
-     * @param atraccion La atracción a agregar al destino.
-     * @return ResponseEntity con la atracción agregada y estado CREATED si el destino existe, o notFound si el destino no existe.
+     * Agrega una actividad a un destino existente.
+     * @param destino_Id El identificador del destino al que se agrega la actividad.
+     * @param actividad La actividad a agregar al destino.
+     * @return ResponseEntity con la actividad agregada y estado CREATED si el destino existe, o notFound si el destino no existe.
      */
-    @PostMapping("/{destino_Id}/atracciones")
-    public ResponseEntity<Atraccion> addAtraccionToDestino(@Valid @PathVariable Integer destino_Id, @RequestBody Atraccion atraccion) {
+    @PostMapping("/{destino_Id}/actividades")
+    public ResponseEntity<Actividad> addActividadToDestino(@Valid @PathVariable Integer destino_Id, @RequestBody Actividad actividad) {
         return destinoService.findById(destino_Id).map(destino -> {
-            destino.agregarAtraccion(atraccion);
+            destino.agregarActividad(actividad);
             destinoService.save(destino);
-            return new ResponseEntity<>(atraccion, HttpStatus.CREATED);
+            return new ResponseEntity<>(actividad, HttpStatus.CREATED);
         }).orElse(ResponseEntity.notFound().build());
     }
 

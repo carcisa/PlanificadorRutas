@@ -18,37 +18,37 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 /**
- * La clase Atraccion representa una entidad de atracción turística mapeada a la
- * tabla 'atracciones' en la base de datos. Incluye detalles como el nombre,
+ * La clase Actividad representa una entidad de actividad turística mapeada a la
+ * tabla 'actividades' en la base de datos. Incluye detalles como el nombre,
  * descripción, categoría, dirección, y su destino asociado.
  */
 @Entity
-@Table(name = "atracciones")
-public class Atraccion {
+@Table(name = "actividad")
+public class Actividad {
 
 	/**
-	 * Identificador único de la atracción, generado automáticamente.
+	 * Identificador único de la actividad, generado automáticamente.
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	/**
-	 * Nombre de la atracción. No puede ser nulo.
+	 * Nombre de la actividad. No puede ser nulo.
 	 */
 	@NotBlank(message = "El nombre no puede estar vacío")
 	@Column(nullable = false)
 	private String nombre;
 
 	/**
-	 * Descripción detallada de la atracción. Máximo 1000 caracteres.
+	 * Descripción detallada de la actividad. Máximo 1000 caracteres.
 	 */
 	@Size(max = 1000, message = "La descripción no puede superar los 1000 caracteres")
 	@Column(length = 1000)
 	private String descripcion;
 
 	/**
-	 * Categoría de la atracción, representada por un enum. No puede ser nulo.
+	 * Categoría de la actividad, representada por un enum. No puede ser nulo.
 	 */
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -56,13 +56,13 @@ public class Atraccion {
 	private Categoria categoria;
 
 	/**
-	 * Dirección física de la atracción.
+	 * Dirección física de la actividad.
 	 */
 	@Column
 	private String direccion;
 
 	/**
-	 * Destino asociado a la atracción. Se utiliza la anotación JsonBackReference
+	 * Destino asociado a la actividad. Se utiliza la anotación JsonBackReference
 	 * para manejar la referencia inversa y evitar la recursión infinita en la
 	 * serialización JSON.
 	 */
@@ -76,20 +76,20 @@ public class Atraccion {
 	 * Constructor por defecto.
 	 * 
 	 */
-	public Atraccion() {
+	public Actividad() {
 
 	}
 
 	/**
 	 * Constructor con todos los atributos de la clase.
 	 * 
-	 * @param nombre      Nombre de la atracción.
-	 * @param descripcion Descripción de la atracción.
-	 * @param categoria   Categoría de la atracción.
-	 * @param direccion   Dirección de la atracción.
-	 * @param destino     Destino asociado a la atracción.
+	 * @param nombre      Nombre de la actividad.
+	 * @param descripcion Descripción de la actividad.
+	 * @param categoria   Categoría de la actividad.
+	 * @param direccion   Dirección de la actividad.
+	 * @param destino     Destino asociado a la actividad.
 	 */
-	public Atraccion(String nombre, String descripcion, Categoria categoria, String direccion, Destino destino) {
+	public Actividad(String nombre, String descripcion, Categoria categoria, String direccion, Destino destino) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.categoria = categoria;
@@ -146,14 +146,14 @@ public class Atraccion {
 	}
 
 	/**
-	 * Representación en cadena de la entidad Atraccion, incluyendo todos sus
+	 * Representación en cadena de la entidad Actividad, incluyendo todos sus
 	 * atributos.
 	 * 
-	 * @return Cadena que representa la entidad Atraccion.
+	 * @return Cadena que representa la entidad Actividad.
 	 */
 	@Override
 	public String toString() {
-		return "Atraccion [getId()=" + getId() + ", getNombre()=" + getNombre() + ", getDescripcion()="
+		return "Actividad [getId()=" + getId() + ", getNombre()=" + getNombre() + ", getDescripcion()="
 				+ getDescripcion() + ", getCategoria()=" + getCategoria() + ", getDireccion()=" + getDireccion()
 				+ ", getDestino()=" + getDestino() + "]";
 	}

@@ -20,7 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.controlador.DestinoController;
-import com.entidades.Atraccion;
+import com.entidades.Actividad;
 import com.entidades.Destino;
 import com.servicio.DestinoService;
 
@@ -59,20 +59,20 @@ class DestinoControllerTest {
     }
 
 //    @Test
-//    void AtraccionesGetDestinoByIdTest() {
+//    void ActividadesGetDestinoByIdTest() {
 //        Integer id = 1;
 //        Destino destino = new Destino();
 //        destino.setId(id);
-//        Atraccion atraccion = new Atraccion();
-//        atraccion.setNombre("Atraccion 1");
-//        destino.agregarAtraccion(atraccion);
+//        Actividad actividad = new Actividad();
+//        actividad.setNombre("Actividad 1");
+//        destino.agregarActividad(actividad);
 //        when(destinoService.findById(id)).thenReturn(Optional.of(destino));
 //
-//        ResponseEntity<List<Atraccion>> response = destinoController.AtraccionesGetDestinoById(id);
+//        ResponseEntity<List<Actividad>> response = destinoController.ActividadesGetDestinoById(id);
 //
 //        assertEquals(HttpStatus.OK, response.getStatusCode());
 //        assertEquals(1, response.getBody().size());
-//        assertEquals(atraccion, response.getBody().get(0));
+//        assertEquals(actividad, response.getBody().get(0));
 //    }
 
     @Test
@@ -86,18 +86,18 @@ class DestinoControllerTest {
     }
 
     @Test
-    void addAtraccionToDestinoTest() {
+    void addActividadToDestinoTest() {
         Integer destinoId = 1;
         Destino destino = new Destino();
-        List<Atraccion> atracciones = new ArrayList<>();
-        destino.setAtracciones(atracciones);
+        List<Actividad> actividades = new ArrayList<>();
+        destino.setActividades(actividades);
         when(destinoService.findById(destinoId)).thenReturn(Optional.of(destino));
 
-        Atraccion atraccion = new Atraccion();
-        ResponseEntity<Atraccion> response = destinoController.addAtraccionToDestino(destinoId, atraccion);
+        Actividad actividad = new Actividad();
+        ResponseEntity<Actividad> response = destinoController.addActividadToDestino(destinoId, actividad);
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(atraccion, response.getBody());
+        assertEquals(actividad, response.getBody());
     }
 
     @Test

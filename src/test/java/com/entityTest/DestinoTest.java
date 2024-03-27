@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.entidades.Atraccion;
+import com.entidades.Actividad;
 import com.entidades.Destino;
 
 import jakarta.validation.Validation;

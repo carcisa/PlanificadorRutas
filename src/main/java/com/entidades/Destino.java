@@ -19,7 +19,7 @@ import jakarta.validation.constraints.Size;
 
 /**
  * La clase Destino representa un destino turístico, mapeado a la tabla 'destinos' en la base de datos.
- * Contiene información básica sobre el destino, como su nombre y descripción, además de una lista de atracciones asociadas.
+ * Contiene información básica sobre el destino, como su nombre y descripción, además de una lista de actividades asociadas.
  */
 @Entity
 @Table(name = "destinos")
@@ -47,12 +47,12 @@ public class Destino {
     private String descripcion;
 
     /**
-     * Lista de atracciones asociadas al destino. La relación es bidireccional y se maneja automáticamente
+     * Lista de actividades asociadas al destino. La relación es bidireccional y se maneja automáticamente
      * la referencia inversa en la serialización JSON para evitar la recursión infinita.
      */
     @OneToMany(mappedBy = "destino", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<Atraccion> atracciones;
+    private List<Actividad> actividades;
 
     /**
      * Constructor por defecto.
@@ -61,17 +61,17 @@ public class Destino {
     }
 
     /**
-     * Constructor completo con todos los atributos, incluyendo la lista de atracciones.
+     * Constructor completo con todos los atributos, incluyendo la lista de actividades.
      * @param id Identificador del destino.
      * @param nombre Nombre del destino.
      * @param descripcion Descripción del destino.
-     * @param atracciones Lista de atracciones asociadas al destino.
+     * @param actividades Lista de actividades asociadas al destino.
      */
-    public Destino(Integer id, String nombre, String descripcion, List<Atraccion> atracciones) {
+    public Destino(Integer id, String nombre, String descripcion, List<Actividad> actividades) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.atracciones = atracciones;
+        this.actividades = actividades;
     }
 
     /**
@@ -122,23 +122,23 @@ public class Destino {
 
 
 
-	public List<Atraccion> getAtracciones() {
-		return atracciones;
+	public List<Actividad> getActividades() {
+		return actividades;
 	}
 
 
 
-	public void setAtracciones(List<Atraccion> atracciones) {
-		this.atracciones = atracciones;
+	public void setActividades(List<Actividad> actividades) {
+		this.actividades = actividades;
 	}
 	
 	 /**
-     * Agrega una atracción a la lista de atracciones del destino y establece la relación inversa.
-     * @param atraccion La atracción a agregar.
+     * Agrega una actividad a la lista de actividades del destino y establece la relación inversa.
+     * @param actividad La actividad a agregar.
      */
-    public void agregarAtraccion(Atraccion atraccion) {
-        atraccion.setDestino(this);
-        atracciones.add(atraccion);
+    public void agregarActividad(Actividad actividad) {
+        actividad.setDestino(this);
+        actividades.add(actividad);
     }
   
 }

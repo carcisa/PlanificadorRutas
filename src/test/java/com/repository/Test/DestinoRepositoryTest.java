@@ -28,7 +28,7 @@ public class DestinoRepositoryTest {
         destino.setId(1002);
         destino.setNombre("Baleares");
         destino.setDescripcion("Isla muy bonitas en el mediterráneo");
-        destino.setAtracciones(new ArrayList<>());
+        destino.setActividades(new ArrayList<>());
         destino = destinoRepository.save(destino);
         
         Optional<Destino> destinoEncontrado = destinoRepository.findById(destino.getId());
@@ -43,7 +43,7 @@ public class DestinoRepositoryTest {
         destino.setId(1003);
         destino.setNombre("Baleares");
         destino.setDescripcion("Isla muy bonitas en el mediterráneo");
-        destino.setAtracciones(new ArrayList<>());
+        destino.setActividades(new ArrayList<>());
         destino = destinoRepository.save(destino);
         
         destinoRepository.deleteById(destino.getId());

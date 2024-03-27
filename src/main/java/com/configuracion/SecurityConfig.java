@@ -62,13 +62,13 @@ public class SecurityConfig {
 				.hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
 				.requestMatchers(HttpMethod.DELETE, "/api/destinos/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
 
-				.requestMatchers(HttpMethod.GET, "/api/atracciones/**")
+				.requestMatchers(HttpMethod.GET, "/api/actividades/**")
 				.hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
-				.requestMatchers(HttpMethod.POST, "/api/destino/{destino_Id}/atracciones")
+				.requestMatchers(HttpMethod.POST, "/api/destino/{destino_Id}/actividades")
 				.hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
-				.requestMatchers(HttpMethod.PUT, "/api/atracciones/**")
+				.requestMatchers(HttpMethod.PUT, "/api/actividades/**")
 				.hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())
-				.requestMatchers(HttpMethod.DELETE, "/api/atracciones/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
+				.requestMatchers(HttpMethod.DELETE, "/api/actividades/**").hasAnyAuthority(Role.ROLE_ADMIN.toString())
 
 				.requestMatchers(HttpMethod.GET, "/api/opiniones/**")
 				.hasAnyAuthority(Role.ROLE_USER.toString(), Role.ROLE_ADMIN.toString())

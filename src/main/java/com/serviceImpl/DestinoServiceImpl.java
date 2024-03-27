@@ -4,7 +4,7 @@ package com.serviceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.entidades.Atraccion;
+import com.entidades.Actividad;
 import com.entidades.Destino;
 import com.repositorio.DestinoRepository;
 import com.servicio.DestinoService;
